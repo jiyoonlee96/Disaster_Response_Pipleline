@@ -50,6 +50,10 @@ Web app where an emergency worker can input a new message and get classification
 
 
 ## Instructions
-1.`python process_data.py disaster_messages.csv disaster_categories.csv DisasterResponse.db`
-2.`python train_classifier.py ../data/DisasterResponse.db classifier.pkl`
-3. Go to http://10.0.0.173:3000/
+To run the app : 
+1. Run the following commands in the project's root directory
+  - to run the ETL pipeline `python process_data.py disaster_messages.csv disaster_categories.csv DisasterResponse.db`\
+  - to run the ML pipeline `python train_classifier.py ../data/DisasterResponse.db classifier.pkl`\
+2. Run the following command in the app's directory
+  `python run.py`
+4. Go to http://10.0.0.173:3000/
