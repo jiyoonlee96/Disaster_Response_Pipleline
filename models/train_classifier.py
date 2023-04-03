@@ -32,7 +32,7 @@ def load_data(database_filepath):
     
     Returns :
     X : Features
-    y : Target
+    Y : Target
     """
 
     #Load data from database
@@ -41,9 +41,9 @@ def load_data(database_filepath):
     
     #Define feature and target variables X and Y
     X = df['message']
-    y = df.iloc[:,4:]
+    Y = df.iloc[:,4:]
     
-    return X, y
+    return X, Y
 
 
 def tokenize(text):
@@ -98,7 +98,7 @@ def build_model():
     return model
 
 
-def evaluate_model(model, X_test, y_test):
+def evaluate_model(model, X_test, Y_test):
     
     """
 
@@ -112,9 +112,9 @@ def evaluate_model(model, X_test, y_test):
     """
     y_pred = model.predict(X_test)
     
-    for i, col in enumerate(y_test):
+    for i, col in enumerate(Y_test):
             print(col)
-            print(classification_report(y_test[col], y_pred[:, i]))
+            print(classification_report(Y_test[col], y_pred[:, i]))
 
 
 def save_model(model, model_filepath):
@@ -139,7 +139,7 @@ def main():
         model.fit(X_train, Y_train)
         
         print('Evaluating model...')
-        evaluate_model(model, X_test, Y_test, category_names)
+        evaluate_model(model, X_test, Y_test)
 
         print('Saving model...\n    MODEL: {}'.format(model_filepath))
         save_model(model, model_filepath)
