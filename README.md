@@ -29,11 +29,11 @@ Web app where an emergency worker can input a new message and get classification
 
 
 ## File Structure
-- app
-| - template
-| |- master.html  # main page of web app
-| |- go.html  # classification result page of web app
-|- run.py  # Flask file that runs app
+- app\
+| - template\
+| |- master.html  # main page of web app\
+| |- go.html  # classification result page of web app\
+|- run.py  # Flask file that runs app\
 
 - data
 |- disaster_categories.csv  # data to process 
