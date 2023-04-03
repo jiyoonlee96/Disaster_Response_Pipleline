@@ -3,6 +3,7 @@
 ## Summary
 In this project, I applied my data enginnering skills to analyze disaster data from Appen (formally Figure 8) to build a model for an API that classifies disaster messages. The dataset used contains real messages that were sent during disaster events. I created a machine learning pipeline to categorize these events so that one can send the messages to an appropriate disaster relief agency.
 
+
 ## Project Components
 There are three components you'll need to complete for this project.
 
@@ -46,3 +47,9 @@ Web app where an emergency worker can input a new message and get classification
 |- classifier.pkl  # saved model
 
 - README.md
+
+
+## Instructions
+1.`python process_data.py disaster_messages.csv disaster_categories.csv DisasterResponse.db`
+2.`python train_classifier.py ../data/DisasterResponse.db classifier.pkl`
+3. Go to http://10.0.0.173:3000/
