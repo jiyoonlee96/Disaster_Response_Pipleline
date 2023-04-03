@@ -37,9 +37,9 @@ Web app where an emergency worker can input a new message and get classification
 
 - data\
 |- disaster_categories.csv  # data to process\ 
-|- disaster_messages.csv  # data to process\
-|- process_data.py\
-|- InsertDatabaseName.db   # database to save clean data to\
+|- disaster_messages.csv  # data to process\ 
+|- process_data.py\ 
+|- InsertDatabaseName.db   # database to save clean data to
 
 - models\
 |- train_classifier.py\
