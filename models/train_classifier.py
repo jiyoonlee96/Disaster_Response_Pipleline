@@ -3,27 +3,24 @@ import sys
 import pandas as pd
 import numpy as np
 import sqlite3
+import sqlalchemy
 from sqlalchemy import create_engine
+import matplotlib.pyplot as plt
 import nltk
-import re
-import pickle
-import pandas as pd
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
-
-from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import GridSearchCV
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split
-from sklearn.pipeline import Pipeline, FeatureUnion
-from sklearn.base import BaseEstimator, TransformerMixin
-from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
+from sklearn.datasets import make_multilabel_classification
 from sklearn.multioutput import MultiOutputClassifier
-from sklearn.metrics import classification_report, accuracy_score
-from sklearn.naive_bayes import MultinomialNB
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.pipeline import Pipeline, FeatureUnion
+from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report
+import pickle
 
 nltk.download(['punkt', 'wordnet'])
-
+nltk.download('omw-1.4')
 
 def load_data(database_filepath):
 
@@ -39,9 +36,9 @@ def load_data(database_filepath):
     """
 
     #Load data from database
-    engine = create_engine('sqlite:///InsertDatabaseName.db')
-    df = pd.read_sql_table("disaster_messages", con=engine)
-
+    engine = create_engine('sqlite:///' + database_filepath)
+    df = pd.read_sql_table('Messages',engine)
+    
     #Define feature and target variables X and Y
     X = df['message']
     y = df.iloc[:,4:]
@@ -93,8 +90,7 @@ def build_model():
     ])
     parameters = {
             'tfidf__use_idf': (True, False),
-            'clf__estimator__n_estimators': [50, 100],
-            'clf__estimator__estimator__C':[1,2,5]
+            'clf__estimator__n_estimators': [50, 100]
     }
 
     model = GridSearchCV(pipeline, param_grid=parameters)
@@ -133,7 +129,7 @@ def main():
     if len(sys.argv) == 3:
         database_filepath, model_filepath = sys.argv[1:]
         print('Loading data...\n    DATABASE: {}'.format(database_filepath))
-        X, Y, category_names = load_data(database_filepath)
+        X, Y = load_data(database_filepath)
         X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2)
         
         print('Building model...')
