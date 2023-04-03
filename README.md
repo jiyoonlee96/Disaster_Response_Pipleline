@@ -43,6 +43,6 @@ Web app where an emergency worker can input a new message and get classification
 
 - models\
 |- train_classifier.py\
-|- classifier.pkl  # saved model\ 
+|- classifier.pkl  # saved model
 
 - README.md
