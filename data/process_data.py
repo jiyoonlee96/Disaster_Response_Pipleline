@@ -55,21 +55,24 @@ def clean_data(df):
     
     #Convert category values to just numbers 0 or 1
     for column in categories:
-        # set each value to be the last character of the string
+        #Set each value to be the last character of the string
         categories[column] = categories[column].astype(str).str[-1]
     
-        # convert column from string to numeric
+        #Convert column from string to numeric
         categories[column] = categories[column].astype(int)
-
+    #Convert all categories to binary
+    categories['related'] = categories['related'].astype('str').str.replace('2', '1')
+    categories['related'] = categories['related'].astype('int')
+   
     #Replace categories column in df with new category columns.
-    # drop the original categories column from `df`
+    #Drop the original categories column from `df`
     df.drop('categories', axis=1, inplace=True)
     
-    # concatenate the original dataframe with the new `categories` dataframe
+    #Concatenate the original dataframe with the new `categories` dataframe
     df = pd.concat([df, categories], axis=1)
     
     #Remove Duplicates
-    # drop duplicates
+    #Drop duplicates
     df.drop_duplicates(inplace=True)
 
     return df
@@ -88,7 +91,7 @@ def save_data(df, database_filename):
     
     #Save the clean dataset into an sqlite database
     engine = create_engine('sqlite:///'+database_filename)
-    df.to_sql('Messages', engine, index=False)
+    df.to_sql('Messages', engine, index=False, if_exists='replace')
 
 
 
